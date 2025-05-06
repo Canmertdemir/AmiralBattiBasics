@@ -15,7 +15,7 @@ public class MainGUI {
     private static List<Gemi> gemiListesi;
 
     public static void main(String[] args) {
-        // Gemi listesi
+
         gemiListesi = Arrays.asList(
                 new Ubot("Deniz Kurdu", "UB-01", Arrays.asList("Torpido", "Mayın")),
                 new ZirhliGemi("Yıldırım", "ZG-77", Arrays.asList("Top", "Roket")),
