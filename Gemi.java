@@ -25,7 +25,6 @@ public class Gemi {
         this.saglik = saglik;
     }
 
-    // İstenirse bu özellikler için getter ve setter metotları eklenebilir.
     public String getGemiTipi() {
         return gemi_tipi;
     }
@@ -74,8 +73,9 @@ public class Gemi {
         this.kritik_hasar_carpani = kritik_hasar_carpani;
     }
 
-    public void hasaralma(int saldirigucu) {
+    public int hasaralma(int saldirigucu) {
         saglik -= silah_sayisi * kritik_hasar_olasiligi * kritik_hasar_carpani * silah_sayisi;
+        return saglik;
         if (can < 0) {
             can = 0;
         }
