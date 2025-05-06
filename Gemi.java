@@ -1,18 +1,22 @@
 import java.util.List;
 
-public class Gemi {
-    String gemi_tipi;
-    String gemi_adi;
-    String gemi_kodu;
-    List<String> gemi_guverte_silahlari;
-    int murettebat_sayisi;
-    int silah_sayisi;
-    int zirh;
-    double kritik_hasar_olasiligi;
-    int kritik_hasar_carpani;
-    int saglik;
+public abstract class Gemi {
+    protected String gemi_tipi;
+    protected String gemi_adi;
+    protected String gemi_kodu;
+    protected List<String> gemi_guverte_silahlari;
+    protected int murettebat_sayisi;
+    protected int silah_sayisi;
+    protected int zirh;
+    protected double kritik_hasar_olasiligi;
+    protected int kritik_hasar_carpani;
+    protected int saglik;
 
-    public Gemi(String gemi_tipi, String gemi_adi, String gemi_kodu, List<String> gemi_guverte_silahlari, int murettebat_sayisi, int silah_sayisi, int zirh, double kritik_hasar_olasiligi, int kritik_hasar_carpani) {
+    // Constructor
+    public Gemi(String gemi_tipi, String gemi_adi, String gemi_kodu,
+                List<String> gemi_guverte_silahlari, int murettebat_sayisi,
+                int silah_sayisi, int zirh, double kritik_hasar_olasiligi,
+                int kritik_hasar_carpani, int saglik) {
         this.gemi_tipi = gemi_tipi;
         this.gemi_adi = gemi_adi;
         this.gemi_kodu = gemi_kodu;
@@ -25,62 +29,35 @@ public class Gemi {
         this.saglik = saglik;
     }
 
-    public String getGemiTipi() {
-        return gemi_tipi;
-    }
-
+    // Getter method for gemi_adi
     public String getGemiAdi() {
         return gemi_adi;
     }
-
-    public String getGemiKodu() {
-        return gemi_kodu;
+    public String saglikDurumu() {
+        return Integer.toString(saglik);  // Sağlık bilgisini döndürüyor.
     }
 
-    public List<String> getGemiGuverteSilahlari() {
-        return gemi_guverte_silahlari;
-    }
-
-    public int getMurettebatSayisi() {
-        return murettebat_sayisi;
-    }
-
-    public int getSilahSayisi() {
-        return silah_sayisi;
-    }
-
-    public int getZirh() {
-        return zirh;
-    }
-
-    public double getKritikHasarOlasiligi() {
-        return kritik_hasar_olasiligi;
-    }
-
-    public int getKritikHasarCarpani() {
-        return kritik_hasar_carpani;
-    }
-
-    public void setZirh(int zirh) {
-        this.zirh = zirh;
-    }
-
-    public void setKritikHasarOlasiligi(double kritik_hasar_olasiligi) {
-        this.kritik_hasar_olasiligi = kritik_hasar_olasiligi;
-    }
-
-    public void setKritikHasarCarpani(int kritik_hasar_carpani) {
-        this.kritik_hasar_carpani = kritik_hasar_carpani;
-    }
-
-    public int hasaralma(int saldirigucu) {
-        saglik -= silah_sayisi * kritik_hasar_olasiligi * kritik_hasar_carpani * silah_sayisi;
-        return saglik;
-        if (can < 0) {
-            can = 0;
+    // Health management method (taking damage)
+    public void hasarAlma(int hasar) {
+        int netHasar = hasar - (zirh / 10);  // Zırhın etkisini hesapla
+        if (Math.random() < kritik_hasar_olasiligi) {
+            kritikHasar(netHasar);  // Kritik hasar durumu
+        } else {
+            saglik -= netHasar;  // Normal hasar
         }
 
-}
+        if (saglik < 0) {
+            saglik = 0;  // Sağlık sıfırın altına inmemeli
+        }
 
-public abstract void saldir(Gemi hedefGemi);
-public abstract void kritik_hasar(int hasar);
+        System.out.println(gemi_adi + " kalan sağlık: " + saglik);
+    }
+
+    // Abstract methods to be implemented in subclasses
+    public abstract void saldir(Gemi hedefGemi);
+    public abstract void kritikHasar(int hasar);
+    public abstract void torpidoAt(Gemi hedefGemi);  // Tek bir soyut metod bırakıldı
+    public abstract void suAltiBombasi(Gemi hedefGemi);
+    public abstract void ozelSaldiri(Gemi hedefGemi); // Bu metod da soyut sınıfta tanımlanıyor
+
+}

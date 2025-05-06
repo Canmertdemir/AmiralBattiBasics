@@ -31,4 +31,22 @@ public class DevriyeBotu extends Gemi {
         saglik -= ekstraHasar;
         if (saglik < 0) saglik = 0;
     }
+    @Override
+    public void torpidoAt(Gemi hedefGemi) {
+        int hasar = 10;
+        System.out.println(gemi_adi + " torpido atıyor!");
+        hedefGemi.hasarAlma(hasar);
+    }
+
+    @Override
+    public void suAltiBombasi(Gemi hedefGemi) {
+        int hasar =5;
+        System.out.println(gemi_adi + " su altı bombası atıyor!");
+        hedefGemi.hasarAlma(hasar);
+    }
+    @Override
+    public void ozelSaldiri(Gemi hedefGemi) {
+        System.out.println(gemi_adi + " özel zırhlı top saldırısı yapıyor!");
+        hedefGemi.hasarAlma(45);  // Zırhlı geminin özel saldırısı
+    }
 }
